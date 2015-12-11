@@ -1,0 +1,41 @@
+{
+  "name": "light-cd",
+  "version": "1.0.0",
+  "description": "Lightweight continuious deployment, wrapping pm2 and github webhooks.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "lint": "jshint *.js",
+    "style": "jscs *.js"
+  },
+  "bin": {
+    "lightcd": "./lightcd"
+  },
+  "author": "Tony Morgan",
+  "homepage": "https://github.com/tmorgan/light-cd",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tmorgan/light-cd"
+  },
+  "license": "MIT",
+  "pre-commit": [
+    "lint",
+    "style",
+    "test"
+  ],
+  "keywords": [
+    "deployment",
+    "ci",
+    "integration",
+    "continuious",
+    "github"
+  ],
+  "dependencies": {
+    "assert": "^1.3.0",
+    "github-webhook-handler": "^0.5.0",
+    "ini": "^1.3.4",
+    "request": "^2.67.0",
+    "shelljs": "^0.5.3",
+    "uuid": "^2.0.1"
+  }
+}
