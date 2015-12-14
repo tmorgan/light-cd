@@ -1,4 +1,4 @@
-# Lightweight continuious deployment wrapping github webhooks and pm2
+# Lightweight continuous deployment wrapping github webhooks and pm2
 
 have a service you want to mirror a branch on github, that you want to keep up and running?
 
