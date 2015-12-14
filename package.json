@@ -1,6 +1,6 @@
 {
   "name": "light-cd",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Lightweight continuious deployment, wrapping pm2 and github webhooks.",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,8 @@
     "ci",
     "integration",
     "continuious",
-    "github"
+    "github",
+    "webhook"
   ],
   "dependencies": {
     "assert": "^1.3.0",

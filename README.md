@@ -17,50 +17,29 @@ lightcd init
 
 then just follow the instructions! (which change based on your project)
 
-## Example instructions
-
+## Example instructions (lightcd init output)
 
 ```
-go here: https://github.com/techlayer/gripid/settings/hooks/news
+open this url in a web browser:  https://github.com/username/repo/settings/hooks/new
 
-add payload URL: http://194.46.136.77/xwebhook:7777
-and secret:655071f5eab440988336bcc59b0b298d
+add this payload URL: http://194.46.156.34/xwebhook:7777
+and this (random) secret: 1565ebb4885e4e18b6ec08ceddbd04b3
+leave the other defaults they are and click the "Add webhook" button.
 
-then run:
+then run these commands:
 
-sudo echo "GITHUB_WEBHOOK_SECRET="655071f5eab440988336bcc59b0b298d" >> ~/.bashrc"
-sudo export GITHUB_WEBHOOK_SECRET="655071f5eab440988336bcc59b0b298d"
-pm2 start lightcd /home/ubunu
+  sudo echo "GITHUB_WEBHOOK_SECRET="1565ebb4885e4e18b6ec08ceddbd04b3" >> ~/.bashrc"
+  sudo export GITHUB_WEBHOOK_SECRET="1565ebb4885e4e18b6ec08ceddbd04b3"
+  pm2 start lightcd /home/tony/light-cd
 
-then:
+then start your process(es) using pm2, save the config, and setup for running on reboot e.g.:
 
- pm2 start your process(es) e.g.: pm2 start index.js && pm2 start worker.js
+  pm2 start index.js
+  pm2 start ...
+  sudo pm2 save
+  sudo pm2 startup
 
-then run:
-
-sudo pm2 save
-sudo pm2 startup
-
-node index.js 
-go here: https://github.com/techlayer/gripid/settings/hooks/news
-
-add payload URL: http://194.46.136.77/xwebhook:7777
-and secret:443b79bc741842c9b60628cb605cc67b
-
-then run:
-
-sudo echo "GITHUB_WEBHOOK_SECRET="443b79bc741842c9b60628cb605cc67b" >> ~/.bashrc"
-sudo export GITHUB_WEBHOOK_SECRET="443b79bc741842c9b60628cb605cc67b"
-pm2 start lightcd undefined
-
-then:
-
- pm2 start your process(es) e.g.: pm2 start index.js && pm2 start worker.js
-
-then run:
-
-sudo pm2 save
-sudo pm2 startup
+you're done! these processes will gracefully reload after pulling remote changes when you git push.
 ```
 
 ## customisation
