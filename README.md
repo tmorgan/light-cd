@@ -28,8 +28,8 @@ leave the other defaults they are and click the "Add webhook" button.
 
 then run these commands:
 
-  sudo echo "GITHUB_WEBHOOK_SECRET="1565ebb4885e4e18b6ec08ceddbd04b3" >> ~/.bashrc"
-  sudo export GITHUB_WEBHOOK_SECRET="1565ebb4885e4e18b6ec08ceddbd04b3"
+  echo "GITHUB_WEBHOOK_SECRET="1565ebb4885e4e18b6ec08ceddbd04b3" >> ~/.bashrc"
+  export GITHUB_WEBHOOK_SECRET="1565ebb4885e4e18b6ec08ceddbd04b3"
   pm2 start lightcd /home/tony/light-cd
 
 then start your process(es) using pm2, save the config, and setup for running on reboot e.g.:
@@ -42,7 +42,21 @@ then start your process(es) using pm2, save the config, and setup for running on
 you're done! these processes will gracefully reload after pulling remote changes when you git push.
 ```
 
-## customisation
+## Graceful reloading
+
+When restarting after a git push, light-cd does a `pm2 gracefulReload`, so if the process you're running handles the pm2 signal properly you should be OK, e.g.
+
+process.on('message', function(msg) { if (msg === 'shutdown') { // finish serving users } });
+
+There are plenty of classes of application where this isn't an issue; queue consumers, monitoring and other background jobs. etc. but if you're running a web server take note.
+
+## Other usage notes
+
+Be mindful of excluding .git when serving static assets.
+
+Also, take care not to modify files on the server, which is the most likely way to cause the implicit `git pull` to fail.
+ 
+## Customisation
 
 do whatever you want with pm2. if there is a pm2.json file in the root directory of your repo it will use that instead of the defaulted ~/.pm2/dump.pm2. 
 
