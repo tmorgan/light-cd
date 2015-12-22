@@ -19,7 +19,6 @@ var main = function() {
   })
 
   handler.on('push', function (event) {
-    if (event.payload.repository.name !== 'gripid') return;
     console.log(shelljs.exec('git pull').output)
     console.log(shelljs.exec('npm install').output)
     console.log(shelljs.exec('pm2 gracefulReload all').output)
