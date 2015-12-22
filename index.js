@@ -45,7 +45,7 @@ var init = function() {
   var ini = require('ini');
   var uuid = require('uuid');
   try {
-    var config = ini.parse(fs.readFileSync('../gripid/.git/config','utf-8'));
+    var config = ini.parse(fs.readFileSync('./.git/config','utf-8'));
     var url = config['remote "origin"']['url']
   } catch (e) {
     url = '';
