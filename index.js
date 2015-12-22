@@ -2,17 +2,33 @@ var http = require('http')
 var fs = require('fs');
 var shelljs = require('shelljs');
 var createHandler = require('github-webhook-handler')
+var url = require('url');
 
 var main = function() {
 
+  var handler = createHandler({ path: '/xwebhook', secret: process.env.GITHUB_WEBHOOK_SECRET });
+
+  var beanstalkHandler = function(req, res, callback) {
+    var parts = url.parse(req.url,true);
+    if (parts.pathname !== '/bswebhook' || parts.query.secret !== process.env.GITHUB_WEBHOOK_SECRET) return callback(null);
+    handler.emit('push', {});
+  };
+
+  var fourZeroFour = function(res) {
+    res.statusCode = 404;
+    res.end('No such location');
+    return;
+  };
+
   http.createServer(function (req, res) {
     handler(req, res, function (err) {
-      res.statusCode = 404
-      res.end('no such location')
+      if (err) return fourZeroFour(res);
+      beanstalkHandler(req, res, function(err) {
+        return fourZeroFour(res);
+      })
     })
   }).listen(7777);
 
-  var handler = createHandler({ path: '/xwebhook', secret: process.env.GITHUB_WEBHOOK_SECRET })
 
   handler.on('error', function (err) {
     console.error('Error:', err.message)
@@ -62,9 +78,9 @@ var init = function() {
                 'and this (random) secret: ' + secret+ '\n'+
                 'leave the other defaults they are and click the "Add webhook" button.\n\n'+
                 'then run these commands:\n\n'+
-                '  echo "GITHUB_WEBHOOK_SECRET="'+secret+'" >> ~/.bashrc"\n'+
+                '  echo \'"export GITHUB_WEBHOOK_SECRET="'+secret+'"\' >> ~/.bashrc\n'+
                 '  export GITHUB_WEBHOOK_SECRET="'+secret+'"\n'+
-                '  pm2 start lightcd '+process.env.PWD+'\n\n'+
+                '  pm2 start lightcd -- '+process.env.PWD+'\n\n'+
                 'then start your process(es) using pm2, save the config, and setup for running on reboot e.g.:\n\n'+
                 '  pm2 start index.js\n' +
                 '  pm2 start ...\n' +
