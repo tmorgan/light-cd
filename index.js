@@ -78,7 +78,7 @@ var init = function() {
                 'and this (random) secret: ' + secret+ '\n'+
                 'leave the other defaults they are and click the "Add webhook" button.\n\n'+
                 'then run these commands:\n\n'+
-                '  echo \'"export GITHUB_WEBHOOK_SECRET="'+secret+'"\' >> ~/.bashrc\n'+
+                '  echo \'export GITHUB_WEBHOOK_SECRET="'+secret+'"\' >> ~/.bashrc\n'+
                 '  export GITHUB_WEBHOOK_SECRET="'+secret+'"\n'+
                 '  pm2 start lightcd -- '+process.env.PWD+'\n\n'+
                 'then start your process(es) using pm2, save the config, and setup for running on reboot e.g.:\n\n'+
