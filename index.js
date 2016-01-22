@@ -74,7 +74,7 @@ var init = function() {
       res = {ip:'IPADDRESS'};
     };
     console.log('open this url in a web browser:  https://github.com/'+ match + '/settings/hooks/new\n\n'+
-                'add this payload URL: http://'+res.ip+'/xwebhook:7777\n'+
+                'add this payload URL: http://'+res.ip+':7777/xwebhook\n'+
                 'and this (random) secret: ' + secret+ '\n'+
                 'leave the other defaults they are and click the "Add webhook" button.\n\n'+
                 'then run these commands:\n\n'+
